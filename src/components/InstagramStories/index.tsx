@@ -2,7 +2,7 @@ import React, {
   forwardRef, useImperativeHandle, useState, useEffect, useRef, memo,
 } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import { Image, ScrollView } from 'react-native';
+import {Image, ScrollView, StyleSheet} from 'react-native';
 import StoryAvatar from '../Avatar';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
 import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
@@ -21,6 +21,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   avatarSeenBorderColors = SEEN_LOADER_COLORS,
   avatarSize = AVATAR_SIZE,
   storyAvatarSize = STORY_AVATAR_SIZE,
+  avatarStyle,
+  avatarNameMaxCharacters,
+  firstAvatarLeftMargin,
   listContainerStyle,
   listContainerProps,
   animationDuration = ANIMATION_DURATION,
@@ -205,8 +208,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story ) => story.imgUrl && (
+      <ScrollView horizontal {...listContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={listContainerStyle} testID="storiesList">
+        {data.map( ( story,index ) => story.imgUrl && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
@@ -217,6 +220,11 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             size={avatarSize}
             showName={showName}
             nameTextStyle={nameTextStyle}
+            nameMaxCharacters={avatarNameMaxCharacters}
+            style={StyleSheet.flatten([
+              avatarStyle,
+              index === 0 && firstAvatarLeftMargin ? { marginLeft: firstAvatarLeftMargin } : null
+            ])}
             key={`avatar${story.id}`}
           />
         ) )}

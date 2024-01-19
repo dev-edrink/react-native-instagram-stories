@@ -1,6 +1,6 @@
 {
-  "name": "@birdwingo/react-native-instagram-stories",
-  "version": "1.1.1",
+  "name": "@dev-edrink/react-native-instagram-stories",
+  "version": "0.0.2",
   "description": "A versatile and captivating React Native component that empowers developers to seamlessly integrate Instagram-style stories into their mobile applications, fostering an engaging and interactive user experience.",
   "main": "src/index.tsx",
   "source": "src/index.tsx",
@@ -9,7 +9,13 @@
     "release": "standard-version",
     "test": "jest --coverage"
   },
-  "repository": "https://github.com/birdwingo/react-native-instagram-stories.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dev-edrink/Web-API.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "keywords": [
     "react-native",
     "android",

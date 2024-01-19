@@ -16,6 +16,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   id,
   imgUrl,
   name,
+  nameMaxCharacters,
   stories,
   loadingStory,
   seenStories,
@@ -25,6 +26,7 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
   size,
   showName,
   nameTextStyle,
+  style
 } ) => {
 
   const loaded = useSharedValue( false );
@@ -45,8 +47,14 @@ const StoryAvatar: FC<StoryAvatarProps> = ( {
     { opacity: withTiming( isLoading.value ? 0.5 : 1 ) }
   ) );
 
+  if(name && nameMaxCharacters)
+  {
+    name = name.length > nameMaxCharacters ? `${name.substring(0, nameMaxCharacters-3)}...` : name;
+  }
+
+
   return (
-    <View style={AvatarStyles.name}>
+    <View style={[AvatarStyles.name,style]}>
       <View style={AvatarStyles.container}>
         <TouchableOpacity activeOpacity={0.6} onPress={onPress} testID={`${id}StoryAvatar${stories.length}Story`}>
           <Loader loading={isLoading} color={loaderColor} size={size + AVATAR_OFFSET * 2} />

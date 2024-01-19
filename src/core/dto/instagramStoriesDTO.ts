@@ -23,6 +23,9 @@ export interface InstagramStoriesProps {
   avatarSeenBorderColors?: string[];
   avatarSize?: number;
   storyAvatarSize?: number;
+  avatarStyle?: ViewStyle;
+  avatarNameMaxCharacters?: number;
+  firstAvatarLeftMargin?: number;
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];
   listContainerProps?: ScrollViewProps;
   containerStyle?: ViewStyle;

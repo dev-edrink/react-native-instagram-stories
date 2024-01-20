@@ -17,6 +17,8 @@ import { StoryModalPublicMethods } from '../../core/dto/componentsDTO';
 const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStoriesProps>( ( {
   stories,
   saveProgress = false,
+  onStoryAvatarPress,
+  closeOnStoryAvatarPress,
   avatarBorderColors = DEFAULT_COLORS,
   avatarSeenBorderColors = SEEN_LOADER_COLORS,
   avatarSize = AVATAR_SIZE,
@@ -27,6 +29,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   listContainerStyle,
   listContainerProps,
   animationDuration = ANIMATION_DURATION,
+  modalSwipeAnimationDuration,
   backgroundColor = BACKGROUND_COLOR,
   showName = false,
   nameTextStyle,
@@ -234,7 +237,10 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
         stories={data}
         seenStories={seenStories}
         duration={animationDuration}
+        modalSwipeAnimationDuration={modalSwipeAnimationDuration}
         storyAvatarSize={storyAvatarSize}
+        onStoryAvatarPress={onStoryAvatarPress}
+        closeOnStoryAvatarPress={closeOnStoryAvatarPress}
         onLoad={onLoad}
         onSeenStoriesChange={onSeenStoriesChange}
         backgroundColor={backgroundColor}

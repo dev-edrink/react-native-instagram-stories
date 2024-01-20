@@ -17,8 +17,8 @@ import ModalStyles from './Modal.styles';
 
 const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
   stories, seenStories, duration, videoDuration, storyAvatarSize, textStyle, containerStyle,
-  backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800, onLoad, onShow, onHide,
-  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd, ...props
+  backgroundColor, videoProps, closeIconColor, modalAnimationDuration = 800,modalSwipeAnimationDuration ,onLoad, onShow, onHide,
+  onSeenStoriesChange, onSwipeUp, onStoryStart, onStoryEnd,onStoryAvatarPress,closeOnStoryAvatarPress, ...props
 }, ref ) => {
 
   const [ visible, setVisible ] = useState( false );
@@ -59,6 +59,17 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
       HEIGHT,
       { duration: modalAnimationDuration },
       () => runOnJS( setVisible )( false ),
+    );
+
+  };
+
+  const onInstantClose = () => {
+    'worklet';
+
+    y.value = withTiming(
+        HEIGHT,
+        { duration: 0 },
+        () => runOnJS( setVisible )( false ),
     );
 
   };
@@ -117,7 +128,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     const newUserIndex = stories.findIndex( ( story ) => story.id === id );
     const newX = newUserIndex * WIDTH;
 
-    x.value = animated ? withTiming( newX, ANIMATION_CONFIG ) : newX;
+    x.value = animated ? withTiming( newX, modalSwipeAnimationDuration?{duration:modalSwipeAnimationDuration}:ANIMATION_CONFIG ) : newX;
 
     if ( sameUser ) {
 
@@ -305,7 +316,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
         startAnimation( true );
 
-      } else if ( ctx.pressedX < WIDTH / 2 ) {
+      } else if ( ctx.pressedX < WIDTH / 2 && !buttonHandled.value) {
 
         toPreviousStory();
 
@@ -369,6 +380,12 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
     [ animation.value ],
   );
 
+  const handleOnAvatarPress = (userId: string | undefined) => {
+    if(!onStoryAvatarPress) return
+    if(closeOnStoryAvatarPress) onInstantClose();
+    onStoryAvatarPress(userId);
+  }
+
   return (
     <Modal visible={visible} transparent animationType="none" testID="storyRNModal" onRequestClose={onClose}>
       <GestureHandler onGestureEvent={onGestureEvent}>
@@ -395,6 +412,7 @@ const StoryModal = forwardRef<StoryModalPublicMethods, StoryModalProps>( ( {
 
                 }}
                 avatarSize={storyAvatarSize}
+                onAvatarPress={()=> handleOnAvatarPress(userId.value)}
                 textStyle={textStyle}
                 buttonHandled={buttonHandled}
                 paused={paused}

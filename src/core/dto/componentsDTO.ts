@@ -28,6 +28,8 @@ export interface StoryModalProps {
   duration: number;
   videoDuration?: number;
   storyAvatarSize: number;
+  onStoryAvatarPress?: (userId:string|undefined) => void;
+  closeOnStoryAvatarPress?:boolean;
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
   backgroundColor?: string;
@@ -36,6 +38,7 @@ export interface StoryModalProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  modalSwipeAnimationDuration?: number;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -102,6 +105,7 @@ export interface StoryHeaderProps {
   buttonHandled: SharedValue<boolean>;
   closeColor: string;
   onClose: () => void;
+  onAvatarPress?: () => void;
 }
 
 export interface IconProps {

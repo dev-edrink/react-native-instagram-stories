@@ -19,6 +19,8 @@ export interface InstagramStoryProps {
 export interface InstagramStoriesProps {
   stories: InstagramStoryProps[];
   saveProgress?: boolean;
+  onStoryAvatarPress?: (userId:string|undefined) => void;
+  closeOnStoryAvatarPress?:boolean;
   avatarBorderColors?: string[];
   avatarSeenBorderColors?: string[];
   avatarSize?: number;
@@ -40,6 +42,7 @@ export interface InstagramStoriesProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  modalSwipeAnimationDuration?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

@@ -43,6 +43,7 @@ export interface InstagramStoriesProps {
   progressColor?: string;
   modalAnimationDuration?: number;
   modalSwipeAnimationDuration?: number;
+  mediaContainerStyle?: ViewStyle;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

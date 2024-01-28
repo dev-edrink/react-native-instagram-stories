@@ -38,11 +38,6 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
         onPress={onClose}
         hitSlop={8}
         testID="storyCloseButton"
-        onPressIn={() => {
-
-          buttonHandled.value = true;
-
-        }}
       >
         <Close color={closeColor} />
       </TouchableOpacity>

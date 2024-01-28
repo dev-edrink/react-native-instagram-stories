@@ -104,7 +104,6 @@ export interface StoryHeaderProps {
   name?: string;
   avatarSize: number;
   textStyle?: TextStyle;
-  buttonHandled: SharedValue<boolean>;
   closeColor: string;
   onClose: () => void;
   onAvatarPress?: () => void;

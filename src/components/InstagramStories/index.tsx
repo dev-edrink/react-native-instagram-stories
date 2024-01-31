@@ -27,7 +27,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   avatarNameMaxCharacters,
   firstAvatarLeftMargin,
   listContainerStyle,
+  avatarListContainerStyle,
   listContainerProps,
+  avatarListContainerProps,
   animationDuration = ANIMATION_DURATION,
   modalSwipeAnimationDuration,
   backgroundColor = BACKGROUND_COLOR,
@@ -211,8 +213,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story,index ) => story.imgUrl && (
+          <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={listContainerStyle} testID="storiesList">
+              {data.map((story, index ) => story.imgUrl && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}

@@ -32,7 +32,12 @@ export interface InstagramStoriesProps {
   avatarNameMaxCharacters?: number;
   firstAvatarLeftMargin?: number;
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  avatarListContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  /**
+    * @deprecated Use {@link avatarListContainerProps} instead.
+  */
   listContainerProps?: ScrollViewProps;
+  avatarListContainerProps?: ScrollViewProps;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;

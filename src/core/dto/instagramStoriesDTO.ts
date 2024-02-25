@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import {
+  ImageProps,
   ImageStyle,
   ScrollViewProps, TextStyle, ViewStyle,
 } from 'react-native';
@@ -53,6 +54,7 @@ export interface InstagramStoriesProps {
   modalSwipeAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

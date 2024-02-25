@@ -1,5 +1,7 @@
 import { SharedValue } from 'react-native-reanimated';
-import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageProps, ImageStyle, TextStyle, ViewStyle,
+} from 'react-native';
 import { InstagramStoryProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
@@ -41,6 +43,7 @@ export interface StoryModalProps {
   modalSwipeAnimationDuration?: number;
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -83,6 +86,7 @@ export interface StoryImageProps {
   mediaContainerStyle?: ViewStyle;
   isActive: SharedValue<boolean>;
   imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -134,6 +138,7 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   progressColor?: string;
   mediaContainerStyle?: ViewStyle;
   imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   onLoad: ( duration?: number ) => void;
 }
 

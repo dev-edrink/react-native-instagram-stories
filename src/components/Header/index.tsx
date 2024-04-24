@@ -9,7 +9,7 @@ import Close from '../Icon/close';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
-  imgUrl, name, onClose, avatarSize, textStyle, buttonHandled, closeColor,onAvatarPress,
+    imgUrl, name, onClose, avatarSize, textStyle, buttonHandled, closeColor, onAvatarPress, headerStyle,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };
@@ -21,7 +21,7 @@ const StoryHeader: FC<StoryHeaderProps> = ( {
 
   return (
     <View style={[ HeaderStyles.container, { width } ]}>
-      <TouchableOpacity style={HeaderStyles.left}
+          <TouchableOpacity style={HeaderStyles.left, headerStyle}
                         onPress={handleOnAvatarPress}
                         hitSlop={16}
                         testID="avatarButton"

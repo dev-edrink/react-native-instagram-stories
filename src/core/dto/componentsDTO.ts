@@ -59,6 +59,8 @@ export type StoryModalPublicMethods = {
   hide: () => void;
   pause: () => void;
   resume: () => void;
+  goToPreviousStory: () => void;
+  goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
 };
 

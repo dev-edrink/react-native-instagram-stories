@@ -9,7 +9,7 @@ import Close from '../Icon/close';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const StoryHeader: FC<StoryHeaderProps> = ( {
-    imgUrl, name, onClose, avatarSize, textStyle, buttonHandled, closeColor, onAvatarPress, headerStyle,
+    imgUrl, name, onClose, avatarSize, textStyle, buttonHandled, closeColor, onAvatarPress, headerStyle, headerContainerStyle,
 } ) => {
 
   const styles = { width: avatarSize, height: avatarSize, borderRadius: avatarSize };

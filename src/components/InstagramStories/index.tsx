@@ -247,7 +247,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             ])}
             key={`avatar${story.id}`}
           />
-        ) )}
+        ) ) )}
       </ScrollView>
       <StoryModal
         ref={modalRef}

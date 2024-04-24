@@ -61,6 +61,7 @@ export interface InstagramStoriesProps {
   headerStyle?: ViewStyle;
   headerContainerStyle?: ViewStyle;
   progressContainerStyle?: ViewStyle;
+  hideAvatarList?: boolean;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;

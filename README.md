@@ -89,8 +89,8 @@ export default YourComponent;
  `avatarSeenBorderColors`   | string[]                                     | [ '#2A2A2C' ]                              | An array of string colors representing the border colors of seen story avatars.
  `avatarSize`               | number                                       | 60                                         | The size of the story avatars.
  `storyAvatarSize`          | number                                       | 25                                         | The size of the avatars shown in the header of each story.
- `listContainerStyle`       | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the list container.
- `listContainerProps`       | ScrollViewProps                              |                                            | Props to be passed to the underlying ScrollView component.
+ `avatarListContainerStyle` | ScrollViewProps['contentContainerStyle']     |                                            | Additional styles for the avatar scroll list container.
+ `avatarListContainerProps` | ScrollViewProps                              |                                            | Props to be passed to the avatar list ScrollView component.
  `containerStyle`           | ViewStyle                                    |                                            | Additional styles for the story container.
  `textStyle`                | TextStyle                                    |                                            | Additional styles for text elements.
  `animationDuration`        | number                                       | 10000                                      | The duration of the story animations in ms.
@@ -103,6 +103,15 @@ export default YourComponent;
  `progressColor`            | string                                       | '#00000099'                                | Background color of progress bar item in inactive state
  `progressActiveColor`      | string                                       | '#FFFFFF'                                  | Background color of progress bar item in active state
  `modalAnimationDuration`   | number                                       | 800                                        | Duration of modal animation in ms (showing/closing instagram stories)
+ `mediaContainerStyle`      | ViewStyle                                    |                                            | Additional styles for media (video or image) container
+ `imageStyles`              | ImageStyle                                   | { width: WIDTH, aspectRatio: 0.5626 }      | Additional styles image component
+ `imageProps`               | ImageProps                                   |                                            | Additional props applied to image component
+ `isVisible`                | boolean                                      | false                                      | A boolean indicating whether to show modal on load (modal will be show with first story item)
+ `headerStyle`              | ViewStyle                                    |                                            | Additional styles for the story header
+ `headerContainerStyle`     | ViewStyle                                    |                                            | Additional styles for the story header container
+ `progressContainerStyle`   | ViewStyle                                    |                                            | Additional styles for the story progress container
+ `hideAvatarList`           | boolean                                      | false                                      | A boolean indicating whether to hide avatar scroll list
+ `imageOverlayView`         | ReactNode                                    |                                            | Image overlay compontent
  `onShow`                   | ( id: string ) => void                       |                                            | Callback when a story is shown.
  `onHide`                   | ( id: string ) => void                       |                                            | Callback when a story is hidden.
  `onSwipeUp`                | ( userId?: string, storyId?: string ) => void|                                            | Callback when user swipes up.
@@ -121,7 +130,9 @@ export default YourComponent;
  `show`                | ( id?: string ) => void                                                                          | Show stories modal with provided story `id`. If `id` is not provided, will be shown first story
  `pause`               | () => void                                                                                       | Pause story
  `resume`              | () => void                                                                                       | Resume story
- `getCurrentStory`    | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
+ `goToPreviousStory`   | () => void                                                                                       | Goes to previous story item
+ `goToNextStory`       | () => void                                                                                       | Goes to next story item
+ `getCurrentStory`     | () => {userId?: string, storyId?: string}                                                        | Returns current userId and storyId
 
 ## Types
 
@@ -131,6 +142,8 @@ export default YourComponent;
 -----------------------|----------------------------------------|----------------
  `id`                  | string                                 | true
  `imgUrl`              | string                                 | false
+ `renderAvatar`        | () => ReactNode                        | false
+ `renderStoryHeader`   | () => ReactNode                        | false
  `name`                | string                                 | false
  `stories`             | [StoryItemProps](#storyitemprops)[]    | true
 

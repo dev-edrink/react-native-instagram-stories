@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.2.7 (2024-04-25)
+
+
+### Bug Fixes
+
+* imageOverlayView property ([7442dc9](https://github.com/birdwingo/react-native-instagram-stories/commit/7442dc91e14291cea58c1fc9b936fe04c8afba5e))
+
+### 1.2.6 (2024-02-25)
+
+
+### Bug Fixes
+
+* image props ([316891e](https://github.com/birdwingo/react-native-instagram-stories/commit/316891e6036bc05f3f5b53137c0383b309bce4d4))
+
+### 1.2.5 (2024-02-23)
+
+### 1.2.4 (2024-02-07)
+
+### 1.2.3 (2024-01-31)
+
+
+### Bug Fixes
+
+* listContainerStyle -> avatarListContainerProps ([ef195cb](https://github.com/birdwingo/react-native-instagram-stories/commit/ef195cb635e066410876f5e945cf415c7644e971))
+
+### 1.2.2 (2024-01-30)
+
+
+### Bug Fixes
+
+* non worklet function ([bfe6016](https://github.com/birdwingo/react-native-instagram-stories/commit/bfe601605de019c4801eb98b528fea53621cd6d4))
+
+### 1.2.1 (2024-01-29)
+
+## 1.2.0 (2024-01-29)
+
+
+### Features
+
+* image styles ([37760c4](https://github.com/birdwingo/react-native-instagram-stories/commit/37760c4ba461747cf2a29828a0cac733f76d78f8))
+
 ### 1.1.1 (2024-01-09)
 
 

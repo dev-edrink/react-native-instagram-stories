@@ -27,7 +27,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   avatarNameMaxCharacters,
   firstAvatarLeftMargin,
   listContainerStyle,
+  avatarListContainerStyle,
   listContainerProps,
+  avatarListContainerProps,
   animationDuration = ANIMATION_DURATION,
   modalSwipeAnimationDuration,
   backgroundColor = BACKGROUND_COLOR,
@@ -36,6 +38,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoAnimationMaxDuration,
   videoProps,
   closeIconColor = CLOSE_COLOR,
+  isVisible = false,
+  hideAvatarList = false,
   ...props
 }, ref ) => {
 
@@ -192,6 +196,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       },
       pause: () => modalRef.current?.pause()!,
       resume: () => modalRef.current?.resume()!,
+      goToPreviousStory: () => modalRef.current?.goToPreviousStory()!,
+      goToNextStory: () => modalRef.current?.goToNextStory()!,
       getCurrentStory: () => modalRef.current?.getCurrentStory()!,
     } ),
     [ data ],
@@ -209,10 +215,24 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   }, [ stories ] );
 
+  useEffect( () => {
+
+    if ( isVisible && data[0]?.id ) {
+
+      modalRef.current?.show( data[0]?.id );
+
+    } else {
+
+      modalRef.current?.hide();
+
+    }
+
+  }, [ isVisible ] );
+
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story,index ) => story.imgUrl && (
+          <ScrollView horizontal {...listContainerProps} {...avatarListContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={[listContainerStyle, avatarListContainerStyle]} testID="storiesList">
+              {data.map((story, index) => story.renderAvatar?.() ?? story.imgUrl && (
           <StoryAvatar
             {...story}
             loadingStory={loadingStory}
@@ -230,8 +250,9 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
             ])}
             key={`avatar${story.id}`}
           />
-        ) )}
+        ) ) )}
       </ScrollView>
+      )}
       <StoryModal
         ref={modalRef}
         stories={data}

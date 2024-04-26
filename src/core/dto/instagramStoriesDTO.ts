@@ -1,5 +1,9 @@
 import { ReactNode } from 'react';
-import { ScrollViewProps, TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageProps,
+  ImageStyle,
+  ScrollViewProps, TextStyle, ViewStyle,
+} from 'react-native';
 
 export interface StoryItemProps {
   id: string;
@@ -12,6 +16,8 @@ export interface StoryItemProps {
 export interface InstagramStoryProps {
   id: string;
   imgUrl?: string;
+  renderAvatar?: () => ReactNode;
+  renderStoryHeader?: () => ReactNode;
   name?: string;
   stories: StoryItemProps[];
 }
@@ -29,7 +35,12 @@ export interface InstagramStoriesProps {
   avatarNameMaxCharacters?: number;
   firstAvatarLeftMargin?: number;
   listContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  avatarListContainerStyle?: ScrollViewProps['contentContainerStyle'];
+  /**
+    * @deprecated Use {@link avatarListContainerProps} instead.
+  */
   listContainerProps?: ScrollViewProps;
+  avatarListContainerProps?: ScrollViewProps;
   containerStyle?: ViewStyle;
   textStyle?: TextStyle;
   animationDuration?: number;
@@ -42,6 +53,15 @@ export interface InstagramStoriesProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  mediaContainerStyle?: ViewStyle;
+  imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
+  isVisible?: boolean;
+  headerStyle?: ViewStyle;
+  headerContainerStyle?: ViewStyle;
+  progressContainerStyle?: ViewStyle;
+  hideAvatarList?: boolean;
+  imageOverlayView?: ReactNode;
   modalSwipeAnimationDuration?: number;
   onShow?: ( id: string ) => void;
   onHide?: ( id: string ) => void;
@@ -59,5 +79,7 @@ export type InstagramStoriesPublicMethods = {
   show: ( id?: string ) => void;
   pause: () => void;
   resume: () => void;
+  goToPreviousStory: () => void;
+  goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
 };

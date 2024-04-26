@@ -1,5 +1,8 @@
 import { SharedValue } from 'react-native-reanimated';
-import { TextStyle, ViewStyle } from 'react-native';
+import {
+  ImageProps, ImageStyle, TextStyle, ViewStyle,
+} from 'react-native';
+import { ReactNode } from 'react';
 import { InstagramStoryProps } from './instagramStoriesDTO';
 import { ProgressStorageProps } from './helpersDTO';
 
@@ -38,6 +41,9 @@ export interface StoryModalProps {
   progressActiveColor?: string;
   progressColor?: string;
   modalAnimationDuration?: number;
+  mediaContainerStyle?: ViewStyle;
+  imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   modalSwipeAnimationDuration?: number;
   onLoad: () => void;
   onShow?: ( id: string ) => void;
@@ -53,6 +59,8 @@ export type StoryModalPublicMethods = {
   hide: () => void;
   pause: () => void;
   resume: () => void;
+  goToPreviousStory: () => void;
+  goToNextStory: () => void;
   getCurrentStory: () => { userId?: string, storyId?: string };
 };
 
@@ -78,7 +86,10 @@ export interface StoryImageProps {
   isDefaultVideo: boolean;
   paused: SharedValue<boolean>;
   videoProps?: any;
+  mediaContainerStyle?: ViewStyle;
   isActive: SharedValue<boolean>;
+  imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
   onImageLayout: ( height: number ) => void;
   onLoad: ( duration?: number ) => void;
 }
@@ -90,6 +101,7 @@ export interface StoryProgressProps {
   length: number;
   progressActiveColor?: string;
   progressColor?: string;
+  progressContainerStyle?: ViewStyle;
 }
 
 export interface StoryProgressItemProps extends Omit<StoryProgressProps, 'length'> {
@@ -102,9 +114,11 @@ export interface StoryHeaderProps {
   name?: string;
   avatarSize: number;
   textStyle?: TextStyle;
-  buttonHandled: SharedValue<boolean>;
   closeColor: string;
+  headerStyle?: ViewStyle;
+  headerContainerStyle?: ViewStyle;
   onClose: () => void;
+  renderStoryHeader?: () => ReactNode;
   onAvatarPress?: () => void;
 }
 
@@ -129,6 +143,11 @@ export interface StoryListProps extends InstagramStoryProps, StoryHeaderProps {
   videoProps?: any;
   progressActiveColor?: string;
   progressColor?: string;
+  mediaContainerStyle?: ViewStyle;
+  imageStyles?: ImageStyle;
+  imageProps?: ImageProps;
+  progressContainerStyle?: ViewStyle;
+  imageOverlayView?: ReactNode;
   onLoad: ( duration?: number ) => void;
 }
 

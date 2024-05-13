@@ -2,10 +2,10 @@ import React, {
   forwardRef, useImperativeHandle, useState, useEffect, useRef, memo,
 } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import {Image, ScrollView, StyleSheet} from 'react-native';
+import {Image, ScrollView, StyleSheet,FlatList} from 'react-native';
 import StoryAvatar from '../Avatar';
 import { clearProgressStorage, getProgressStorage, setProgressStorage } from '../../core/helpers/storage';
-import { InstagramStoriesProps, InstagramStoriesPublicMethods } from '../../core/dto/instagramStoriesDTO';
+import { InstagramStoriesProps, InstagramStoriesPublicMethods ,InstagramStoryProps } from '../../core/dto/instagramStoriesDTO';
 import { ProgressStorageProps } from '../../core/dto/helpersDTO';
 import {
   ANIMATION_DURATION, DEFAULT_COLORS, SEEN_LOADER_COLORS,
@@ -40,12 +40,41 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 }, ref ) => {
 
   const [ data, setData ] = useState( stories );
+  const [sortedData, setSortedData] = useState<InstagramStoryProps[]>([]);
 
   const seenStories = useSharedValue<ProgressStorageProps>( {} );
   const loadedStories = useSharedValue( false );
   const loadingStory = useSharedValue<string | undefined>( undefined );
 
   const modalRef = useRef<StoryModalPublicMethods>( null );
+
+  const refreshStories = async () => {
+    let seenData: ProgressStorageProps = {};
+    if (saveProgress) {
+        seenData = await getProgressStorage();
+    }
+
+    const usersWithAllSeenStories: InstagramStoryProps[] = [];
+    const usersWithUnseenStories: InstagramStoryProps[] = [];
+
+    stories.forEach(story => {
+        const hasUnseenStory = story.stories.some(s => !(seenData[story.id] && seenData[story.id].includes(s.id)));
+        if (hasUnseenStory) {
+            usersWithUnseenStories.push(story);
+        } else {
+            usersWithAllSeenStories.push(story);
+        }
+    });
+
+    const newSortedData = [...usersWithUnseenStories, ...usersWithAllSeenStories];
+    setSortedData(newSortedData); // Set the sorted data
+};
+
+
+  useEffect(() => {
+    refreshStories(); // Initial fetch and sort
+  }, [data, saveProgress]);
+  
 
   const onPress = ( id: string ) => {
 
@@ -129,6 +158,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   useImperativeHandle(
     ref,
     () => ( {
+      refreshStories,
       spliceStories: ( newStories, index ) => {
 
         if ( index === undefined ) {
@@ -209,32 +239,43 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
 
   }, [ stories ] );
 
+
+  const renderItem = ({ item, index }: { item: any, index: number }) => (
+    <StoryAvatar
+      {...item}
+
+      loadingStory={loadingStory}
+      seenStories={seenStories}
+      onPress={() => onPress( item.id )}
+      colors={avatarBorderColors}
+      seenColors={avatarSeenBorderColors}
+      size={avatarSize}
+      showName={showName}
+      nameTextStyle={nameTextStyle}
+      nameMaxCharacters={avatarNameMaxCharacters}
+      style={StyleSheet.flatten([
+        avatarStyle,
+        index === 0 ? { marginLeft: 20 } 
+        : index === data?.length! - 1 ? { marginRight: 20 }
+        : null,, // assuming a left margin for the first item
+      ])}          
+      />
+  );
+
   return (
     <>
-      <ScrollView horizontal {...listContainerProps} showsHorizontalScrollIndicator={false} contentContainerStyle={listContainerStyle} testID="storiesList">
-        {data.map( ( story,index ) => story.imgUrl && (
-          <StoryAvatar
-            {...story}
-            loadingStory={loadingStory}
-            seenStories={seenStories}
-            onPress={() => onPress( story.id )}
-            colors={avatarBorderColors}
-            seenColors={avatarSeenBorderColors}
-            size={avatarSize}
-            showName={showName}
-            nameTextStyle={nameTextStyle}
-            nameMaxCharacters={avatarNameMaxCharacters}
-            style={StyleSheet.flatten([
-              avatarStyle,
-              index === 0 && firstAvatarLeftMargin ? { marginLeft: firstAvatarLeftMargin } : null
-            ])}
-            key={`avatar${story.id}`}
-          />
-        ) )}
-      </ScrollView>
+        <FlatList
+          data={sortedData}
+          horizontal
+          keyExtractor={(story) => story.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={listContainerStyle}
+          showsHorizontalScrollIndicator={false}
+          {...props}
+        />
       <StoryModal
         ref={modalRef}
-        stories={data}
+        stories={sortedData}
         seenStories={seenStories}
         duration={animationDuration}
         modalSwipeAnimationDuration={modalSwipeAnimationDuration}

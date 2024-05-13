@@ -51,6 +51,7 @@ export interface InstagramStoriesProps {
 }
 
 export type InstagramStoriesPublicMethods = {
+  refreshStories: () => void; // Allow the parent component to trigger this function
   spliceStories: ( stories: InstagramStoryProps[], index?: number ) => void;
   spliceUserStories: ( stories: StoryItemProps[], user: string, index?: number ) => void;
   setStories: ( stories: InstagramStoryProps[] ) => void;

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { ScrollViewProps, TextStyle, ViewStyle } from 'react-native';
 
 export interface StoryItemProps {
@@ -48,6 +48,8 @@ export interface InstagramStoriesProps {
   onSwipeUp?: ( userId?: string, storyId?: string ) => void;
   onStoryStart?: ( userId?: string, storyId?: string ) => void;
   onStoryEnd?: ( userId?: string, storyId?: string ) => void;
+  isLoading?: boolean;
+  skeleton?: React.ReactNode;
 }
 
 export type InstagramStoriesPublicMethods = {

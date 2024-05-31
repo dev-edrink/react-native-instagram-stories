@@ -36,6 +36,8 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
   videoAnimationMaxDuration,
   videoProps,
   closeIconColor = CLOSE_COLOR,
+  isLoading,
+  skeleton,
   ...props
 }, ref ) => {
 
@@ -261,6 +263,10 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
       ])}          
       />
   );
+
+  if(isLoading || !sortedData || sortedData.length == 0) return(
+    skeleton?skeleton:null
+  )
 
   return (
     <>

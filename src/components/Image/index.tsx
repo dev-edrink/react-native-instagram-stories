@@ -21,7 +21,7 @@ const StoryImage: FC<StoryImageProps> = ( {
   const loading = useSharedValue( true );
   const color = useSharedValue( LOADER_COLORS );
   const videoDuration = useSharedValue<number | undefined>( undefined );
-  const isPaused = useDerivedValue( () => paused.value || !isActive.value );
+  const isPaused = useDerivedValue(() => paused.value || !isActive.value || loading.value);
 
   const onImageChange = async () => {
 
@@ -76,23 +76,18 @@ const StoryImage: FC<StoryImageProps> = ( {
     [ activeStory.value ],
   );
 
-  const onContentLoad = ( duration?: number ) => {
-
-    if ( data.isVideo ) {
-
+  const onContentLoad = (duration?: number) => {
+    if (data.isVideo) {
       videoDuration.value = duration;
-
     }
 
     loading.value = false;
 
-    if ( isActive.value ) {
-
-      onLoad( duration );
-
+    if (isActive.value) {
+      onLoad(duration);
     }
-
   };
+
 
   return (
     <>

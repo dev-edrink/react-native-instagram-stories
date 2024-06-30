@@ -17,13 +17,16 @@ const StoryVideo: FC<StoryVideoProps> = ( {
 
     const ref = useRef<any>( null );
 
-    const [ pausedValue, setPausedValue ] = useState( !paused.value );
+    const [ pausedValue, setPausedValue ] = useState( paused.value );
 
-    const start = () => ref.current?.seek( 0 );
+    const start = () => {
+      ref.current?.seek( 0 );
+      ref.current?.resume();
+    };
 
     useAnimatedReaction(
       () => paused.value,
-      ( res, prev ) => res !== prev && runOnJS( setPausedValue )( !res ),
+      ( res, prev ) => res !== prev && runOnJS( setPausedValue )( res ),
       [ paused.value ],
     );
 
@@ -39,7 +42,7 @@ const StoryVideo: FC<StoryVideoProps> = ( {
         style={{ width: WIDTH, aspectRatio: 0.5626 }}
         {...props}
         source={{ uri }}
-        paused={!pausedValue}
+        paused={pausedValue}
         controls={false}
         repeat={false}
         onLoad={( { duration }: { duration: number } ) => onLoad( duration * 1000 )}

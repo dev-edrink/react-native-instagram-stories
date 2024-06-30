@@ -60,7 +60,7 @@ const InstagramStories = forwardRef<InstagramStoriesPublicMethods, InstagramStor
     const usersWithUnseenStories: InstagramStoryProps[] = [];
 
     stories.forEach(story => {
-        const hasUnseenStory = story.stories.some(s => !(seenData[story.id] && seenData[story.id].includes(s.id)));
+        const hasUnseenStory = story.stories.some(s => !(seenData[story.id] && seenData[story.id]?.includes(s.id)));
         if (hasUnseenStory) {
             usersWithUnseenStories.push(story);
         } else {
